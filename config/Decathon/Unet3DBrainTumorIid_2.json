@@ -1,0 +1,53 @@
+{
+    "task": "segmentation",
+    "class_number_type": "multi-label, binary-class",
+    "model": "UNet3D",
+    "data_param": {
+        "data_random_split": false,
+        "data": "",
+        "trainset": {
+            "image": "/home/yan/workspace/downloaded_data/Task01_BrainTumour/feature/train/iid/client2",
+            "label": "/home/yan/workspace/downloaded_data/Task01_BrainTumour/label/train/iid/client2"
+        },
+        "testset": {
+            "image": "/home/yan/workspace/downloaded_data/Task01_BrainTumour/feature/test/iid/client2",
+            "label": "/home/yan/workspace/downloaded_data/Task01_BrainTumour/label/test/iid/client2"
+        },
+        "data_type": "CT",
+        "channel": 4,
+        "num_classes": 4,
+        "img_size": [
+            128,
+            128,
+            64
+        ],
+        "rotate": false
+    },
+    "bench_param": {
+        "server_address": "localhost:8090",
+        "device": "cuda:0",
+        "num_rounds": 20
+    },
+    "training_param": {
+        "epochs": 2,
+        "batch_size": 16,
+        "learning_rate": 0.001,
+        "loss_func": "dice_loss",
+        "optimizer": "adam",
+        "optimizer_param": {
+            "betas1": 0.9,
+            "betas2": 0.999,
+            "eps": 1e-08,
+            "weight_decay": 0,
+            "amsgrad": false
+        }
+    },
+    "testing_param": {
+        "model_path": "save_model/UNet3DBrainTumorIid.pth",
+        "test_path": {
+            "image": "",
+            "label": ""
+        },
+        "test_save_path": "prediction/"
+    }
+}

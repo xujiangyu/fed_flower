@@ -1,0 +1,47 @@
+{
+    "task": "classification",
+    "model": "DenseNet3D",
+    "data_path": "/home/yawei/xusong/organmnist3d/unbalance/",
+    "class_number_type": "multi-label, binary-class",
+    "data_param": {
+        "data_random_split": false,
+        "data": "",
+        "trainset": "/home/yawei/xusong/organmnist3d/unbalance/client_0/train/train_data_client_0.pt",
+        "testset": "/home/yawei/xusong/organmnist3d/unbalance/client_0/test/test_data_client_0.pt",
+        "data_type": "CT",
+        "channel": 1,
+        "num_classes": 11,
+        "img_size": [
+            28,
+            28,
+            28
+        ],
+        "rotate": true
+    },
+    "bench_param": {
+        "server_address": "localhost:8091",
+        "device": "cuda:0",
+        "num_rounds": 20
+    },
+    "training_param": {
+        "epochs": 2,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "loss_func": "cross_entropy",
+        "optimizer": "sgd",
+        "optimizer_param": {
+            "momentum": 0.9,
+            "dampening": 0,
+            "weight_decay": 0,
+            "nesterov": false
+        }
+    },
+    "testing_param": {
+        "model_path": "save_model/Unbalance_DenseNet3D.pth",
+        "test_path": [
+            "client_0/test/test_data_client_0.pt",
+            "client_1/test/test_data_client_1.pt"
+        ],
+        "labeled": false
+    }
+}
