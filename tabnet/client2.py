@@ -11,4 +11,4 @@ model = TabNetClassifier(cat_idxs=[0, 1, 2, 3, 4, 5, 6, 7],
 
 client = TabNetClient(model, test_x, test_y, x1, y1)
 
-fl.client.start_numpy_client(client=client, server_address="localhost:8091")
+fl.client.start_numpy_client(client=client, server_address="localhost:8092")
