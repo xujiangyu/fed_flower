@@ -45,6 +45,7 @@ class TabNetClient(fl.client.NumPyClient):
         self.test_y = test_y
         self.train_x = train_x
         self.train_y = train_y
+        self.model.fit(self.train_x.values, self.train_y.values)
 
     def get_parameters(self, config: Dict[str, Scalar]) -> NDArrays:
         return get_parameters(self.model.network)
@@ -58,7 +59,6 @@ class TabNetClient(fl.client.NumPyClient):
             config: Dict[str,
                          Scalar]) -> Tuple[NDArrays, int, Dict[str, Scalar]]:
         set_parameters(self.model.network, parameters=parameters)
-        self.model.fit(self.train_x.values, self.train_y.values)
 
         return self.get_parameters(config={}), len(self.test_y), {
             "loss=" + str(float(0.1)) + "_" + "accuracy": 0.1
