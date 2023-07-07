@@ -1,4 +1,4 @@
-# 安装好flwr和torch
+# 安装好[flwr](https://github.com/adap/flower)和[tabnet](https://github.com/dreamquark-ai/tabnet)
 
 # M2机器上
 ```shell
@@ -7,4 +7,3 @@ python server.py
 python client1.py
 python client2.py
 ```
-
