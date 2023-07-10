@@ -59,6 +59,7 @@ class TabNetClient(fl.client.NumPyClient):
             config: Dict[str,
                          Scalar]) -> Tuple[NDArrays, int, Dict[str, Scalar]]:
         self.set_parameters(parameters=parameters)
+        self.model.fit(self.train_x.values, self.train_y.values, max_epochs=1)
 
         return self.get_parameters(config={}), len(self.test_y), {
             "loss=" + str(float(0.1)) + "_" + "accuracy": 0.1
