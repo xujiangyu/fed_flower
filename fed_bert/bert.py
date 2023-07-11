@@ -29,7 +29,7 @@ def train_metrics(model, test_x, test_y):
 
 
 def get_parameters(net) -> List[np.ndarray]:
-    return [val.numpy() for _, val in net['model'].items()]
+    return [val.numpy() for _, val in net.items()]
 
 
 def set_parameters(net, parameters: List[np.ndarray]):
@@ -46,7 +46,7 @@ class BertClient(fl.client.NumPyClient):
         self.CLIENT_ID = CLIENT_ID
 
     def get_parameters(self, config: Dict[str, Scalar]) -> NDArrays:
-        return get_parameters(self.model)
+        return get_parameters(self.model['model'])
 
     def set_parameters(self, parameters):
         set_parameters(self.model, parameters)
