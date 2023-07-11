@@ -76,7 +76,7 @@ class BertClient(fl.client.NumPyClient):
         assert os.system(cmd_str) == 0
 
         model = torch.load(
-            f"{ROOT_DIR}/client_{self.CLIENT_ID}/server/checkpoint_avg.pt",
+            f"{ROOT_DIR}/client_{self.CLIENT_ID}/checkpoints/checkpoint_best.pt",
             map_location=torch.device("cpu"))
         self.model = model
 
