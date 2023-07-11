@@ -54,8 +54,8 @@ class BertClient(fl.client.NumPyClient):
                ][:self.limit_size]
 
     def set_parameters(self, parameters):
-        params_dict = zip(self.model['model'].keys()[:self.limit_size],
-                          parameters)
+        params_dict = zip(
+            list(self.model['model'].keys())[:self.limit_size], parameters)
 
         for k, v in params_dict:
             self.model['model'][k] = torch.Tensor(v)
