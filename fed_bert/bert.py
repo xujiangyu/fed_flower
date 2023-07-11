@@ -50,7 +50,8 @@ class BertClient(fl.client.NumPyClient):
         self.limit_size = 10
 
     def get_parameters(self, config: Dict[str, Scalar]) -> NDArrays:
-        return [val.numpy() for _, val in self.model.items()][:self.limit_size]
+        return [val.numpy() for _, val in self.model['model'].items()
+               ][:self.limit_size]
 
     def set_parameters(self, parameters):
         params_dict = zip(self.model['model'].keys()[:self.limit_size],
