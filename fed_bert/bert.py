@@ -42,7 +42,7 @@ def set_parameters(net, parameters: List[np.ndarray]):
 class BertClient(fl.client.NumPyClient):
 
     def __init__(self, model=None, CLIENT_ID=0) -> None:
-        # self.model = model
+        self.model = model
         self.CLIENT_ID = CLIENT_ID
 
     def get_parameters(self, config: Dict[str, Scalar]) -> NDArrays:
