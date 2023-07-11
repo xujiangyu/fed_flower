@@ -28,12 +28,15 @@ def train_metrics(model, test_x, test_y):
     return recall, acc
 
 
+limit_size = 10
+
+
 def get_parameters(net) -> List[np.ndarray]:
-    return [val.numpy() for _, val in net.items()]
+    return [val.numpy() for _, val in net.items()][:limit_size]
 
 
 def set_parameters(net, parameters: List[np.ndarray]):
-    params_dict = zip(net['model'].keys(), parameters)
+    params_dict = zip(net['model'].keys()[:limit_size], parameters)
 
     for k, v in params_dict:
         net['model'][k] = torch.Tensor(v)
@@ -44,12 +47,19 @@ class BertClient(fl.client.NumPyClient):
     def __init__(self, model=None, CLIENT_ID=0) -> None:
         self.model = model
         self.CLIENT_ID = CLIENT_ID
+        self.limit_size = 10
 
     def get_parameters(self, config: Dict[str, Scalar]) -> NDArrays:
-        return get_parameters(self.model['model'])
+        return [val.numpy() for _, val in self.model.items()][:self.limit_size]
 
     def set_parameters(self, parameters):
-        set_parameters(self.model, parameters)
+        params_dict = zip(self.model['model'].keys()[:self.limit_size],
+                          parameters)
+
+        for k, v in params_dict:
+            self.model['model'][k] = torch.Tensor(v)
+
+        # set_parameters(self.model, parameters)
 
     def fit(self, parameters: NDArrays,
             config: Dict[str,
