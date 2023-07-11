@@ -1,6 +1,6 @@
 import os
 
-TOTAL_UPDATES = 10  # Total number of training steps
+TOTAL_UPDATES = 31  # Total number of training steps
 #TOTAL_UPDATES=125000    # Total number of training steps
 WARMUP_UPDATES = 10  # Warmup the learning rate over this many updates
 #WARMUP_UPDATES=10000    # Warmup the learning rate over this many updates
