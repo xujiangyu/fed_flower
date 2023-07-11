@@ -66,6 +66,7 @@ class BertClient(fl.client.NumPyClient):
         #                 f"--save-dir {ROOT_DIR}/client_{self.CLIENT_ID}/checkpoints --restore-file {ROOT_DIR}/client_{self.CLIENT_ID}/server/checkpoint_avg_{epoch}.pt"
 
         #     assert os.system(cmd_str) == 0
+        del self.model
 
         cmd_str = f"fairseq-train --fp16 {ROOT_DIR}/client_{self.CLIENT_ID}/data-bin --task masked_lm --criterion masked_lm " \
                     f"--arch roberta_base --sample-break-mode complete --tokens-per-sample {TOKENS_PER_SAMPLE} --optimizer adam " \
@@ -75,10 +76,10 @@ class BertClient(fl.client.NumPyClient):
                     f"--save-dir {ROOT_DIR}/client_{self.CLIENT_ID}/checkpoints --restore-file {ROOT_DIR}/client_{self.CLIENT_ID}/checkpoints/checkpoint_best.pt"
         assert os.system(cmd_str) == 0
 
-        model = torch.load(
+        self.model = torch.load(
             f"{ROOT_DIR}/client_{self.CLIENT_ID}/checkpoints/checkpoint_best.pt",
             map_location=torch.device("cpu"))
-        self.model = model
+        # self.model = model
 
         return self.get_parameters(config={}), 100, {
             "loss=" + str(float(0.1)) + "_" + "accuracy": 0.1
